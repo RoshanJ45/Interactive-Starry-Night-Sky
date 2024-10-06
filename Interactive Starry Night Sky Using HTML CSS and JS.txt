@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #001848, #000000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .sky {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px white;
+            animation: twinkle 2s infinite ease-in-out alternate;
+        }
+        @keyframes twinkle {
+            from {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            to {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="sky" id="sky"></div>
+    <script>
+        const sky = document.getElementById('sky');
+
+
+        function createStar(x, y) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${y}px`;
+            star.style.left = `${x}px`;
+            sky.appendChild(star);
+
+
+            setTimeout(() => {
+                star.remove();
+            }, 8000);
+        }
+
+
+        sky.addEventListener('click', (e) => {
+            createStar(e.clientX, e.clientY);
+        });
+
+
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createStar(x, y);
+        }, 500);
+    </script>
+</body>
+</html>
